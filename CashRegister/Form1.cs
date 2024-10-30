@@ -5,8 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
+using System.Media;
 
 namespace CashRegister
 {
@@ -101,20 +102,32 @@ namespace CashRegister
 
         private void printReceiptButton_Click(object sender, EventArgs e)
         {
-            printReceiptOutput.Text += $"\nAmount of apple bought: {numOfApples}";
-            printReceiptOutput.Text += $"\nAmount of bananas bought: {numOfBananas}";
-            printReceiptOutput.Text += $"\nAmount of blueberries bought: {numOfBlueberries}";
+            SoundPlayer sp = new SoundPlayer(Properties.Resources.printSound);
+            sp.Play();
+
+            printReceiptOutput.Text += $"\n{numOfApples} apples                                           {applePriceTotal.ToString("C")}";
+            printReceiptOutput.Text += $"\n{numOfBananas} bananas                                        {bananaPriceTotal.ToString("C")}";
+            printReceiptOutput.Text += $"\n{numOfBlueberries} blueberries                                     {blueberryPriceTotal.ToString("C")}";
+            sp.Play();   
+            Refresh();
+            Thread.Sleep(2000);
             printReceiptOutput.Text += $"\n";
-            printReceiptOutput.Text += $"\n--------------------------------------------";
+            printReceiptOutput.Text += $"\n-------------------------------------------------------------------------------------";
             printReceiptOutput.Text += $"\n";
-            printReceiptOutput.Text += $"\nSub Total: {subtotal.ToString("C")}";
-            printReceiptOutput.Text += $"\nTax: {taxAmount.ToString("C")}";
-            printReceiptOutput.Text += $"\nTotal: {totalPrice.ToString("C")}";
+            printReceiptOutput.Text += $"\nSub Total:                                         {subtotal.ToString("C")}";
+            printReceiptOutput.Text += $"\nTax:                                                  {taxAmount.ToString("C")}";
+            printReceiptOutput.Text += $"\nTotal:                                                {totalPrice.ToString("C")}";
+            sp.Play();
+            Refresh();
+            Thread.Sleep(2000);
             printReceiptOutput.Text += $"\n";
-            printReceiptOutput.Text += $"\n--------------------------------------------";
+            printReceiptOutput.Text += $"\n--------------------------------------------------------------------------------------";
             printReceiptOutput.Text += $"\n";
-            printReceiptOutput.Text += $"\nTendered: {tenderedMoney.ToString("C")}";
-            printReceiptOutput.Text += $"\nChange: {changeAmount.ToString("C")}";
+            printReceiptOutput.Text += $"\nTendered:                                         {tenderedMoney.ToString("C")}";
+            printReceiptOutput.Text += $"\nChange:                                           {changeAmount.ToString("C")}";
+            sp.Play();
+            Refresh();
+            Thread.Sleep(2000);
         }
     }
 }
